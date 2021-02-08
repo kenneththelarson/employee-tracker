@@ -2,19 +2,21 @@
   "name": "employee-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "dependencies": {
     "console.table": "^0.10.0",
     "inquirer": "^7.3.3",
+    "mysql-migrations": "^1.0.7",
     "mysql2": "^2.2.5"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kenneththelarson/employee-tracker.git"
+    "url": "git+https://github.com/prestonrl/employee-tracker.git"
   },
   "keywords": [],
   "author": "",
