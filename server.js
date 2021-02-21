@@ -34,17 +34,17 @@ const userPrompts = () => {
         connection.end();
       } else if (answer.options === 'View all Departments') {
         viewDepartments();
-      } else if (answer.options === "View all roles") {
+      } else if (answer.options === "View all Roles") {
         viewRoles();
-      } else if (answer.options === "View all employees") {
+      } else if (answer.options === "View all Employees") {
         viewEmployees();
-      } else if (answer.options === "Add a department") {
+      } else if (answer.options === "Add a Department") {
         addDepartment();
-      } else if (answer.options === "Add a role") {
+      } else if (answer.options === "Add a Role") {
         addRole();
-      } else if (answer.options === "Add an employee") {
+      } else if (answer.options === "Add an Employee") {
         addEmployee();
-      } else if (answer.options === "Update an employee role") {
+      } else if (answer.options === "Update an Employee Role") {
         updateRole();
       }
     });
@@ -60,10 +60,10 @@ function viewDepartments() {
 };
 
 function viewRoles() {
-  const query = 'SELECT * FROM `roles`';
-  connection.promise().query(query, (err, res) => {
+  const query = `SELECT * FROM roles`;
+  connection.query(query, (err, res) => {
     if (err) throw err;
-    console.table('Roles', rows);
+    console.table(res);
     userPrompts();
   });
 };
@@ -189,7 +189,7 @@ function updateRole() {
         {
           type: 'list',
           name: 'role',
-          message: 'Select which role this employee has:',
+          message: 'Select a new role for this employee:',
           choices: allRoles
         }
       ])
