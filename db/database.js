@@ -1,12 +1,13 @@
-const mysql2 = require('mysql2');
+require('dotenv').config();
+const mysql = require('mysql2');
 
 // Connect to database
-const db = mysql2('./db/tracker.db', err => {
-    if (err) {
-        return console.error(err.message);
-    }
-
-    console.log('Connected to the tracker database');
+const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    port: 3306,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 
-module.exports = db;
+module.exports = connection;

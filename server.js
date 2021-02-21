@@ -1,19 +1,16 @@
-const mysql = require('mysql2');
+const connection = require('./db/database');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  user: 'kenneththelarson',
-  password: 'Kenneththelarson24!',
-  database: 'tracker'
-});
-
 connection.connect((err) => {
   if (err) throw err;
-  console.log('Welcome to Employee Tracker');
-  userPrompts();
+  console.log(`
+    ================
+       Welcome to
+    EMPLOYEE TRACKER
+    ================
+    `);
+    userPrompts();
 });
 
 const userPrompts = () => {
@@ -54,7 +51,7 @@ const userPrompts = () => {
 };
 
 function viewDepartments() {
-  const query = `SELECT * FROM department`;
+  const query = `SELECT id, name AS department FROM department`;
   connection.query(query, function (err, res) {
     if (err) throw err;
     console.table(res);
@@ -63,10 +60,10 @@ function viewDepartments() {
 };
 
 function viewRoles() {
-  const query = `SELECT * FROM role`;
-  connection.query(query, function (err, res) {
+  const query = 'SELECT * FROM `roles`';
+  connection.promise().query(query, (err, res) => {
     if (err) throw err;
-    console.table(res);
+    console.table('Roles', rows);
     userPrompts();
   });
 };
@@ -119,7 +116,7 @@ function addRole() {
       const role = res.role;
       const salary = res.salary;
       const departmentId = res.departmentId;
-      const query = `INSERT INTO role (title, salary, department_id) VALUES ('${title}', '${salary}', '${departmentId}')`;
+      const query = `INSERT INTO roles (title, salary, department_id) VALUES ('${role}', '${salary}', '${departmentId}')`;
       connection.query(query, function (err, res) {
         if (err) throw err;
         console.table(res);
@@ -156,7 +153,7 @@ function addEmployee() {
       const lastName = res.lastName;
       const roleId = res.roleId;
       const managerId = res.managerId;
-      const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUE ('${firstName}', '${lastName}', '${roleId}', '${managerId}')`;
+      const query = `INSERT INTO employee (first_name, last_name, roles_id, manager_id) VALUE ('${firstName}', '${lastName}', '${roleId}', '${managerId}')`;
       connection.query(query, function (err, res) {
         if (err) throw err;
         console.log(firstName + " " + lastName + " has been added.");
@@ -183,7 +180,7 @@ function updateRole() {
   ])
     .then(function (answer) {
       employeeSelect = answer.employee;
-      connection.query('SELECT * FROM role', function (error, res) {
+      connection.query('SELECT * FROM roles', function (error, res) {
         let allRoles = res.map((role) => ({
           name: role.title,
           value: role.id

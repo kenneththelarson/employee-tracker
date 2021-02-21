@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS tracker;
 
-CREATE database tracker;
+CREATE DATABASE tracker;
 
 USE tracker;
 
@@ -10,7 +10,7 @@ CREATE TABLE department (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE role (
+CREATE TABLE roles (
   id INTEGER NOT NULL AUTO_INCREMENT,
   title VARCHAR(30) NOT NULL,
   salary DECIMAL NOT NULL,
