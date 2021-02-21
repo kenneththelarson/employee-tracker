@@ -198,7 +198,7 @@ function updateRole() {
           connection.query('UPDATE employee SET ? WHERE ?',
             [
               {
-                role_id: newRole
+                roles_id: newRole
               },
               {
                 id: employeeSelect
